@@ -2,7 +2,7 @@ from library import cleanerVk
 
 
 def main():
-    login, password = 'gimelside@gmail.com', 'DQ7TQJKA'
+    login, password = 'login', 'password'
     session = cleanerVk(login, password)
     session.deleteTraces()
 
