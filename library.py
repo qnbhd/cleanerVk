@@ -1,6 +1,6 @@
 import time
 from messages import messages
-
+import sys
 
 class cleanerVk:
     def __init__(
@@ -31,8 +31,11 @@ class cleanerVk:
                 yield node['id']
 
     def getCandidates(self):
+        animation = "|/-\\"
         for node in self.getConversations():
-            for msg in self.getHistory(node):
+            for i, msg in enumerate(self.getHistory(node)):
+                sys.stdout.write("\r" + animation[i % len(animation)])
+                sys.stdout.flush()
                 yield msg
                 time.sleep(self.sleep_coef)
 
@@ -50,5 +53,7 @@ class cleanerVk:
             if counter % self.send_num == 0 and counter != 0:
                 self.delete_messages(to_del)
                 to_del = []
-        if to_del != '':
+        if to_del != []:
             self.delete_messages(to_del)
+        sys.stdout.flush()
+        print('')
